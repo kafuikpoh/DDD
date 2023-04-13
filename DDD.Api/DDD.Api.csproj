@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk.Web">
+	<PropertyGroup>
+		<TargetFramework>net7.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<UserSecretsId>b279cf37-9016-43ec-b72d-0ce6955e39a4</UserSecretsId>
+	</PropertyGroup>
+	<PropertyGroup Condition=" '$(RunConfiguration)' == 'https' " />
+	<PropertyGroup Condition=" '$(RunConfiguration)' == 'http' " />
+	<ItemGroup>
+		<ProjectReference Include="..\DDD.Application\DDD.Application.csproj">
+			<GlobalPropertiesToRemove>
+			</GlobalPropertiesToRemove>
+		</ProjectReference>
+		<ProjectReference Include="..\DDD.Contracts\DDD.Contracts.csproj">
+			<GlobalPropertiesToRemove>
+			</GlobalPropertiesToRemove>
+		</ProjectReference>
+		<ProjectReference Include="..\DDD.Infrastructure\DDD.Infrastructure.csproj">
+			<GlobalPropertiesToRemove>
+			</GlobalPropertiesToRemove>
+		</ProjectReference>
+	</ItemGroup>
+	<ItemGroup>
+		<None Remove="Controllers\" />
+		<None Remove="Common\" />
+		<None Remove="Common\Errors\" />
+		<None Remove="Common\Http\" />
+		<None Remove="Mapster" />
+		<None Remove="Mapster.DependencyInjection" />
+		<None Remove="Common\Mapping\" />
+	</ItemGroup>
+	<ItemGroup>
+		<Folder Include="Controllers\" />
+		<Folder Include="Common\" />
+		<Folder Include="Common\Errors\" />
+		<Folder Include="Common\Http\" />
+		<Folder Include="Common\Mapping\" />
+	</ItemGroup>
+	<ItemGroup>
+	  <PackageReference Include="Mapster" Version="7.3.0" />
+	  <PackageReference Include="Mapster.DependencyInjection" Version="1.0.0" />
+	</ItemGroup>
+</Project>
