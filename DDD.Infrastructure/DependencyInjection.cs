@@ -5,6 +5,7 @@ using DDD.Application.Common.Interfaces.Persistence;
 using DDD.Application.Common.Interfaces.Services;
 using DDD.Infrastructure.Authentication;
 using DDD.Infrastructure.Persistence;
+using DDD.Infrastructure.Persistence.DataAccess;
 using DDD.Infrastructure.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Configuration;
@@ -39,6 +40,7 @@ public static class DependencyInjection
 
         services.AddSingleton(Options.Create(jwtSettings));
         services.AddSingleton<IJwtTokenGenerator, JwtTokenGenerator>();
+        services.AddSingleton<ISqlDataAccess, SqlDataAccess>();
 
         services.AddAuthentication(defaultScheme: JwtBearerDefaults.AuthenticationScheme)
             .AddJwtBearer(options => options.TokenValidationParameters = new TokenValidationParameters

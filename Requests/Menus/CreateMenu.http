@@ -1,0 +1,23 @@
+@host=http://localhost:5009
+@hostId=5a9b1b9c-5b9b-4b9b-9b1b-9c5b9b4b9b1c
+@token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1ZDQ4MGY4Yi1lNzY5LTRjZDItYTgzOC1lNmVmNWRiZTcwYTIiLCJnaXZlbl9uYW1lIjoiS2FmdWkiLCJmYW1pbHlfbmFtZSI6IkRhcmsiLCJqdGkiOiI3ZWRhNDVjYy05NTY0LTRlOGYtODUyZS05ZTAxOTE5Yzc4MjkiLCJleHAiOjE2ODE0NjY4NjMsImlzcyI6IkRERCIsImF1ZCI6IkRERCJ9.-J9w_KuVbYb2HqlSWOdeYm5_Rqhx0AQvMx59JdKQG1w
+POST {{host}}/hosts/{{hostId}}/menus
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "name" : "Tasty menu",
+    "description" : "A menu with tasty food",
+    "sections" : [
+        {
+            "name" : "Salads",
+            "description" : "Finishers",
+            "items" : [
+                {
+                    "name" : "Pickled cabbages",
+                    "description" : "Pickled cabbages with a dash of strawberry"
+                }
+            ]
+        }
+    ]
+}
