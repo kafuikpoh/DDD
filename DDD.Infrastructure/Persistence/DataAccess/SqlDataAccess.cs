@@ -14,6 +14,16 @@ public class SqlDataAccess : ISqlDataAccess
         _config = config;
     }
 
+    public async Task LoadData<T, T1, T2>(string sql, Func<T, T1, T2, T>  parameters, string splitOn, string connectionStringName)
+    {
+        string? connectionString = _config.GetConnectionString(connectionStringName);
+
+        using (IDbConnection connection = new MySqlConnection(connectionString))
+        {
+            var rows = await connection.QueryAsync<T, T1, T2, T>(sql, parameters, splitOn: splitOn, commandType: CommandType.StoredProcedure);
+        }
+    }
+
     public async Task SaveData<T>(string storedProcedure, T parameters, string connectionStringName)
     {
         string? connectionString = _config.GetConnectionString(connectionStringName);
@@ -23,4 +33,5 @@ public class SqlDataAccess : ISqlDataAccess
             var rows = await connection.ExecuteAsync(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
         }
     }
+
 }

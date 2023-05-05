@@ -1,5 +1,6 @@
 using DDD.Application.Common.Interfaces.Persistence;
 using DDD.Domain.DinnerAggregate.ValueObjects;
+using DDD.Domain.HostAggregate.ValueObjects;
 using DDD.Domain.MenuAggregate;
 using DDD.Domain.MenuAggregate.Entities;
 using DDD.Domain.MenuAggregate.ValueObjects;
@@ -18,7 +19,7 @@ public class MenuRepository : IMenuRepository
     }
 
     /// <summary>
-    /// Accepts a MenuAggregate as parameter and persists in db
+    /// A method that persists a MenuAggregate in an sql database utilizing a stored procedure.
     /// </summary>
     /// <param name="menu"></param>
     /// <returns></returns>
@@ -57,6 +58,47 @@ public class MenuRepository : IMenuRepository
         await Task.WhenAll(menuTask, sectionTask, itemTask!);
     }
 
+    /// <summary>
+    /// A method that retrieves a list of Menus from an sql database.
+    /// </summary>
+    /// <param name="hostId">The host's unique id(Guid)</param>
+    /// <param name="menuId">The menu's unique(Guid)</param>
+    /// <returns>A List of menus</returns>
+    public async Task<IEnumerable<Menu>> Fetch(HostId hostId, MenuId menuId)
+    {
+        // var menus = await _dataAccess.LoadData<MenuSection, MenuItem, Menu>("fetch_menus",
+        //     (menusection, menuitem, menu) =>
+        //     {
+        //         menu = Menu.Create(Men)
+
+        //         return m;
+        //     }, "MenuSectionId, MenuItemId", "default");
+
+        return Enumerable.Empty<Menu>();
+    }
+
+    // public async Task<IEnumerable<Menu>> Fetch (HostId hostId, MenuId menuId)
+    // {
+    //     var sql = @"SELECT 
+    //         m.MenuId as Id,
+    //         BIN_TO_UUID(ms.MenuId) as MenuId,
+    //         m.Name,
+    //         m.HostId,
+    //         BIN_TO_UUID(ms.MenuSectionId) AS MenuSectionId,
+    //         ms.Name,
+    //         ms.Description,
+    //         BIN_TO_UUID(mt.MenuItemId) AS MenuItemId,
+    //         mt.Name,
+    //         mt.Description
+    //     FROM Menus m
+    //     JOIN MenuSections ms
+    //         ON ms.MenuId = m.MenuId
+    //     JOIN MenuItems mt
+    //         ON ms.MenuSectionId = mt.MenuSectionId AND m.MenuId = mt.MenuId
+    //     ORDER BY Id;";
+
+    //     (menu, menuSection, menuItem) => {menu.}
+    // }
 
     private async Task AddMenuSections(Guid menuId,IEnumerable<MenuSection> sections)
     {
