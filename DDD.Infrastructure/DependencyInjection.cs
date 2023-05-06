@@ -5,8 +5,10 @@ using DDD.Application.Common.Interfaces.Persistence;
 using DDD.Application.Common.Interfaces.Services;
 using DDD.Infrastructure.Authentication;
 using DDD.Infrastructure.Persistence;
+using DDD.Infrastructure.Persistence.Repositories;
 using DDD.Infrastructure.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
@@ -18,16 +20,18 @@ public static class DependencyInjection
 {
     public static IServiceCollection AddInfrastructure(this IServiceCollection services, ConfigurationManager configuration)
     {
-        services.AddAuth(configuration).AddPersistence();
+        services.AddAuth(configuration).AddPersistence(configuration);
         services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
 
         return services;
     }
 
-    public static IServiceCollection AddPersistence(this IServiceCollection services)
+    public static IServiceCollection AddPersistence(this IServiceCollection services, ConfigurationManager configuration)
     {
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<IMenuRepository, MenuRepository>();
+        services.AddDbContext<BuberDinnerDbContext>(options =>
+            options.UseMySql(configuration.GetConnectionString("MySqlConnection"), new MySqlServerVersion(new Version(8, 0, 29))));
 
         return services;
     }
