@@ -6,8 +6,8 @@ namespace DDD.Domain.MenuAggregate.Entities;
 public sealed class MenuSection : Entity<MenuSectionId>
 {
     private readonly List<MenuItem> _items = new();
-    public string Name { get; set; } = null!;
-    public string Description { get; set; } = null!;
+    public string Name { get; private set; } = null!;
+    public string Description { get; private set; } = null!;
     public IReadOnlyList<MenuItem> Items => _items.AsReadOnly();
 
     private MenuSection(
@@ -32,4 +32,10 @@ public sealed class MenuSection : Entity<MenuSectionId>
             description,
             items ?? new());
     }
+
+    #pragma warning disable cs8618
+        private MenuSection()
+        {
+        }
+    #pragma warning restore cs8618
 }

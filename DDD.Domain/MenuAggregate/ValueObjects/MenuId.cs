@@ -13,11 +13,24 @@ public sealed class MenuId : ValueObject
 
     public static MenuId CreateUnique()
     {
+        // TODO: Enforce invariants
         return new(Guid.NewGuid());
+    }
+
+    public static MenuId Create(Guid value)
+    {
+        // TODO: Enforce invariants
+        return new MenuId(value);
     }
 
     public override IEnumerable<object> GetEqualityComponents()
     {
         yield return Value;
     }
+
+    #pragma warning disable cs8618
+        private MenuId()
+        {
+        }
+    #pragma warning restore cs8618
 }

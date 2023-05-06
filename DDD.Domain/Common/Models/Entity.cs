@@ -33,4 +33,10 @@ public abstract class Entity<TId> : IEquatable<Entity<TId>> where TId : notnull
     {
         return Id.GetHashCode();
     }
+
+    #pragma warning disable cs8618
+        protected Entity()
+        {
+        }
+    #pragma warning restore cs8618
 }

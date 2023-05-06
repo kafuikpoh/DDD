@@ -20,4 +20,10 @@ public sealed class DinnerId : ValueObject
     {
         yield return Value;
     }
+
+    #pragma warning disable cs8618
+        private DinnerId()
+        {
+        }
+    #pragma warning restore cs8618
 }

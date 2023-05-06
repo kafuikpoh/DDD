@@ -13,16 +13,25 @@ public sealed class HostId : ValueObject
 
     public static HostId CreateUnique()
     {
+        // TODO: Enforce invariance
         return new(Guid.NewGuid());
     }
 
-    public static HostId Create(string value)
+    public static HostId Create(Guid value)
     {
-        return new(Guid.Parse(value));
+        // TODO: Enforce invariance
+        return new HostId (value);
     }
 
     public override IEnumerable<object> GetEqualityComponents()
     {
         yield return Value;
+    }
+
+    public static HostId Create(string hostId)
+    {
+        // TODO: Check on this method
+        // TODO: Enforce invariance
+        return new HostId(new Guid(hostId));
     }
 }

@@ -13,15 +13,15 @@ public sealed class Menu : AggregateRoot<MenuId>
     private readonly List<MenuSection> _sections = new();
     private readonly List<DinnerId> _dinnerIds = new();
     private readonly List<MenuReviewId> _menuReviewIds = new();
-    public string Name { get; } = null!;
-    public string Description { get; } = null!;
-    public AverageRating AverageRating { get; }
-    public HostId HostId {get;} = null!;
+    public string Name { get; private set; } = null!;
+    public string Description { get; private set; } = null!;
+    public AverageRating AverageRating { get; private set; } = null!;
+    public HostId HostId {get; private set;} = null!;
     public IReadOnlyList<MenuSection> Sections => _sections.AsReadOnly();
     public IReadOnlyList<DinnerId> DinnerIds => _dinnerIds.AsReadOnly();
     public IReadOnlyList<MenuReviewId> MenuReviewIds => _menuReviewIds.AsReadOnly();
-    public DateTime CreatedDateTime { get; }
-    public DateTime UpdatedDateTime { get; }
+    public DateTime CreatedDateTime { get; private set; }
+    public DateTime UpdatedDateTime { get; private set; }
 
     private Menu(MenuId menuId,
         string name,
@@ -51,4 +51,10 @@ public sealed class Menu : AggregateRoot<MenuId>
             hostId,
             sections ?? new());
     }
+
+    #pragma warning disable cs8618
+        private Menu()
+        {
+        }
+    #pragma warning restore cs8618
 }
