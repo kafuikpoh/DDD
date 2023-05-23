@@ -2,9 +2,9 @@ using DDD.Domain.Common.Models;
 
 namespace DDD.Domain.DinnerAggregate.ValueObjects;
 
-public sealed class DinnerId : ValueObject
+public sealed class DinnerId : AggregateRootId<Guid>
 {
-    public Guid Value { get; }
+    public override Guid Value { get; protected set; }
 
     public DinnerId(Guid value)
     {

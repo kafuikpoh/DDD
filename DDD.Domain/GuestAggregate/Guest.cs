@@ -8,7 +8,7 @@ using DDD.Domain.UserAggregate.ValueObjects;
 
 namespace DDD.Domain.GuestAggregate;
 
-public sealed class Guest : AggregateRoot<GuestId>
+public sealed class Guest : AggregateRoot<GuestId, Guid>
 {
     private readonly List<UpcomingDinnerId> _upcomingDinnerIds = new();
     private readonly List<PastDinnerId> _pastDinnerIds = new();

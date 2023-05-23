@@ -7,7 +7,7 @@ using DDD.Domain.UserAggregate.ValueObjects;
 
 namespace DDD.Domain.Host;
 
-public sealed class Host : AggregateRoot<HostId>
+public sealed class Host : AggregateRoot<HostId, Guid>
 {
     private readonly List<DinnerId> _dinnerIds = new();
     private readonly List<MenuId> _menuIds = new();

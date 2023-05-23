@@ -3,8 +3,9 @@ using DDD.Domain.UserAggregate.ValueObjects;
 
 namespace DDD.Domain.UserAggregate;
 
-public sealed class User : AggregateRoot<UserId>
+public sealed class User : AggregateRoot<UserId, Guid>
 {
+    
     public string FirstName { get; set; } = default!;
     public string LastName { get; set; } = default!;
     public string Email { get; set; } = default!;

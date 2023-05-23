@@ -2,9 +2,9 @@ using DDD.Domain.Common.Models;
 
 namespace DDD.Domain.MenuReviewAggregate.ValueObjects;
 
-public sealed class MenuReviewId : ValueObject
+public sealed class MenuReviewId : AggregateRootId<Guid>
 {
-    public Guid Value { get; }
+    public override Guid Value { get; protected set; }
 
     public MenuReviewId(Guid value)
     {

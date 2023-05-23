@@ -2,9 +2,9 @@ using DDD.Domain.Common.Models;
 
 namespace DDD.Domain.GuestAggregate.ValueObjects;
 
-public sealed class GuestId : ValueObject
+public sealed class GuestId : AggregateRootId<Guid>
 {
-    public Guid Value {get;}
+    public override Guid Value {get; protected set; }
 
     public GuestId(Guid value)
     {

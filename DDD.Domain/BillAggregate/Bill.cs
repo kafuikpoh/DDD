@@ -6,7 +6,7 @@ using DDD.Domain.HostAggregate.ValueObjects;
 
 namespace DDD.Domain.BillAggregate;
 
-public sealed class Bill : AggregateRoot<BillId>
+public sealed class Bill : AggregateRoot<BillId, Guid>
 {
     public Price Price { get; } = null!;
     public DinnerId DinnerId { get; } = null!;

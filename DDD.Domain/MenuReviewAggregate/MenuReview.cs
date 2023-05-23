@@ -8,7 +8,7 @@ using DDD.Domain.MenuReviewAggregate.ValueObjects;
 
 namespace DDD.Domain.MenuReviewAggregate;
 
-public sealed class MenuReview : AggregateRoot<MenuReviewId>
+public sealed class MenuReview : AggregateRoot<MenuReviewId, Guid>
 {
     public MenuId MenuId { get; } = null!;
     public GuestId GuestId { get; } = null!;
@@ -31,6 +31,8 @@ public sealed class MenuReview : AggregateRoot<MenuReviewId>
         GuestId = guestId;
         Rating = rating;
         Comment = comment;
+        DinnerId = dinnerId;
+        HostId = hostId;
     }
 
     public static MenuReview Create(
