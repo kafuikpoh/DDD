@@ -5,6 +5,7 @@ using DDD.Application.Common.Interfaces.Persistence;
 using DDD.Application.Common.Interfaces.Services;
 using DDD.Infrastructure.Authentication;
 using DDD.Infrastructure.Persistence;
+using DDD.Infrastructure.Persistence.Interceptors;
 using DDD.Infrastructure.Persistence.Repositories;
 using DDD.Infrastructure.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -28,6 +29,7 @@ public static class DependencyInjection
 
     public static IServiceCollection AddPersistence(this IServiceCollection services, ConfigurationManager configuration)
     {
+        services.AddScoped<PublishDomainEventInterceptor>();
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<IMenuRepository, MenuRepository>();
         services.AddDbContext<BuberDinnerDbContext>(options =>

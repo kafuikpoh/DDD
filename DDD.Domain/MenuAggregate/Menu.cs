@@ -3,6 +3,7 @@ using DDD.Domain.Common.ValueObjects;
 using DDD.Domain.DinnerAggregate.ValueObjects;
 using DDD.Domain.HostAggregate.ValueObjects;
 using DDD.Domain.MenuAggregate.Entities;
+using DDD.Domain.MenuAggregate.Events;
 using DDD.Domain.MenuAggregate.ValueObjects;
 using DDD.Domain.MenuReviewAggregate.ValueObjects;
 
@@ -43,17 +44,21 @@ public sealed class Menu : AggregateRoot<MenuId, Guid>
         string description,
         List<MenuSection>? sections = null)
     {
-        return new(
+        var menu = new Menu(
             MenuId.CreateUnique(),
             name,
             description,
             AverageRating.CreateNew(),
             hostId,
             sections ?? new());
+
+        menu.AddDomainEvent(new MenuCreated(menu));
+
+        return menu;
     }
 
-    #pragma warning disable cs8618
-        private Menu()
+#pragma warning disable cs8618
+    private Menu()
         {
         }
     #pragma warning restore cs8618
