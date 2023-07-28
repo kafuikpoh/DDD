@@ -10,14 +10,12 @@ namespace DDD.Domain.MenuReviewAggregate;
 
 public sealed class MenuReview : AggregateRoot<MenuReviewId, Guid>
 {
-    public MenuId MenuId { get; } = null!;
-    public GuestId GuestId { get; } = null!;
-    public DinnerId DinnerId { get; } = null!;
-    public HostId HostId { get; } = null!;
-    public Rating Rating { get; } = null!;
-    public string? Comment { get; set; }
-    public DateTime CreatedDateTime { get; }
-    public DateTime UpdatedDateTime { get; }
+    public MenuId MenuId { get; private set; } = null!;
+    public GuestId GuestId { get; private set; } = null!;
+    public DinnerId DinnerId { get; private set; } = null!;
+    public HostId HostId { get; private set; } = null!;
+    public Rating Rating { get; private set; } = null!;
+    public string Comment { get; private set;  }
 
     private MenuReview(MenuReviewId menuReviewId,
         MenuId menuId,
@@ -25,7 +23,7 @@ public sealed class MenuReview : AggregateRoot<MenuReviewId, Guid>
         DinnerId dinnerId,
         HostId hostId,
         Rating rating,
-        string? comment) : base(menuReviewId)
+        string comment) : base(menuReviewId)
     {
         MenuId = menuId;
         GuestId = guestId;
@@ -40,16 +38,25 @@ public sealed class MenuReview : AggregateRoot<MenuReviewId, Guid>
         GuestId guestId,
         DinnerId dinnerId,
         HostId hostId,
-        Rating rating,
-        string? comment = null)
+        int rating,
+        string comment,
+        MenuReviewId? menuReviewId = null)
     {
+        //TODO: enforce invariance
+
+        var ratingValueObject = Rating.Create(rating);
         return new(
-            MenuReviewId.CreateUnique(),
+            menuReviewId ?? MenuReviewId.CreateUnique(),
             menuId,
             guestId,
             dinnerId,
             hostId,
-            rating,
+            ratingValueObject,
             comment);
     }
+#pragma warning disable CS8618
+    private MenuReview()
+    {
+    }
+#pragma warning restore CS8618
 }

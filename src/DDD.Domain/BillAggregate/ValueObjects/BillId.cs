@@ -1,23 +1,27 @@
-using DDD.Domain.Common.Models;
+using DDD.Domain.Common.Models.Identities;
+using DDD.Domain.DinnerAggregate.ValueObjects;
+using DDD.Domain.GuestAggregate.ValueObjects;
 
 namespace DDD.Domain.BillAggregate.ValueObjects;
 
-public sealed class BillId : AggregateRootId<Guid>
+public sealed class BillId : AggregateRootId<string>
 {
-    public override Guid Value { get; protected set; }
 
-    public BillId(Guid value)
+    private BillId(string value) : base(value)
     {
-        Value = value;
     }
 
-    public static BillId CreateUnique()
+    private BillId(DinnerId dinnerId, GuestId guestId) : base($"Bill_{dinnerId.Value}_{guestId.Value}")
     {
-        return new(Guid.NewGuid());
     }
 
-    public override IEnumerable<object> GetEqualityComponents()
+    public static BillId Create(DinnerId dinnerId, GuestId guestId)
     {
-        yield return Value;
+        return new BillId(dinnerId, guestId);
+    }
+
+    public static BillId Create(string value)
+    {
+        return new BillId(value);
     }
 }

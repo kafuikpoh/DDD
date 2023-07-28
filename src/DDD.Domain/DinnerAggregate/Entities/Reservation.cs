@@ -1,5 +1,6 @@
 using DDD.Domain.BillAggregate.ValueObjects;
 using DDD.Domain.Common.Models;
+using DDD.Domain.DinnerAggregate.Enums;
 using DDD.Domain.DinnerAggregate.ValueObjects;
 using DDD.Domain.GuestAggregate.ValueObjects;
 
@@ -7,49 +8,46 @@ namespace DDD.Domain.DinnerAggregate.Entities;
 
 public sealed class Reservation : Entity<ReservationId>
 {
-    public int GuestCount { get; }
-    public string ReservationStatus { get; } = null!;
-    public GuestId GuestId { get; } = null!;
-    public BillId BillId { get; } = null!;
-    public DateTime ArrivalDateTime { get; }
-    public DateTime CreatedDateTime { get; }
-    public DateTime UpdatedDateTime { get; }
+    public int GuestCount { get; private set; }
+    public GuestId GuestId { get; private set; }
+    public BillId? BillId { get; private set; }
+    public ReservationStatus ReservationStatus { get; private set; }
+    public DateTime? ArrivalDateTime { get; private set; }
+    public DateTime CreatedDateTime { get; private set; }
+    public DateTime UpdatedDateTime { get; private set; }
 
-    private Reservation(ReservationId reservationId,
-        int guestCount,
-        string reservationStatus,
+    private Reservation(
         GuestId guestId,
-        BillId billId,
-        DateTime arrivalDateTime,
-        DateTime createdDateTime,
-        DateTime updatedDateTime) : base(reservationId)
+        int guestCount,
+        DateTime? arrivalDateTime,
+        BillId? billId,
+        ReservationStatus reservationStatus) : base(ReservationId.CreateUnique())
     {
         GuestCount = guestCount;
         ReservationStatus = reservationStatus;
         GuestId = guestId;
         BillId = billId;
         ArrivalDateTime = arrivalDateTime;
-        CreatedDateTime = createdDateTime;
-        UpdatedDateTime = updatedDateTime;
     }
 
     public static Reservation Create(
-        int guestCount,
-        string reservationStatus,
         GuestId guestId,
-        BillId billId,
-        DateTime arrivalDateTime,
-        DateTime createdDateTime,
-        DateTime updatedDateTime)
+        int guestCount,
+        ReservationStatus status,
+        BillId? billId = null,
+        DateTime? arrivalDateTime = null)
     {
-        return new(
-            ReservationId.CreateUnique(),
-            guestCount,
-            reservationStatus,
+        return new Reservation(
             guestId,
-            billId,
+            guestCount,
             arrivalDateTime,
-            createdDateTime,
-            updatedDateTime);
+            billId,
+            status);
     }
+
+#pragma warning disable CS8618
+    private Reservation()
+    {
+    }
+#pragma warning restore CS8618
 }

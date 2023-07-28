@@ -1,23 +1,21 @@
-using DDD.Domain.Common.Models;
+using DDD.Domain.Common.Models.Identities;
 
 namespace DDD.Domain.GuestAggregate.ValueObjects;
 
 public sealed class GuestId : AggregateRootId<Guid>
 {
-    public override Guid Value {get; protected set; }
 
-    public GuestId(Guid value)
+    public GuestId(Guid value) : base(value)
     {
-        Value = value;
     }
 
     public static GuestId CreateUnique()
     {
-        return new(Guid.NewGuid());
+        return new GuestId(Guid.NewGuid());
     }
 
-    public override IEnumerable<object> GetEqualityComponents()
+    public static GuestId Create(Guid value)
     {
-        yield return Value;
+        return new GuestId(value);
     }
 }

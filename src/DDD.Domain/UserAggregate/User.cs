@@ -5,7 +5,7 @@ namespace DDD.Domain.UserAggregate;
 
 public sealed class User : AggregateRoot<UserId, Guid>
 {
-    
+
     public string FirstName { get; set; } = default!;
     public string LastName { get; set; } = default!;
     public string Email { get; set; } = default!;
@@ -13,11 +13,12 @@ public sealed class User : AggregateRoot<UserId, Guid>
     public DateTime CreatedDateTime { get; }
     public DateTime UpdatedDateTime { get; }
 
-    private User(UserId userId,
+    private User(
         string firstName,
         string lastName,
         string email,
-        string password) : base(userId)
+        string password,
+        UserId? userId = null) : base(userId ?? UserId.CreateUnique())
     {
         FirstName = firstName;
         LastName = lastName;
@@ -31,11 +32,16 @@ public sealed class User : AggregateRoot<UserId, Guid>
         string email,
         string password)
     {
+        //TODO: enforce invariance
         return new(
-            UserId.CreateUnique(),
             firstName,
             lastName,
             email,
             password);
     }
+#pragma warning disable CS8618
+    private User()
+    {
+    }
+#pragma warning restore CS8618
 }

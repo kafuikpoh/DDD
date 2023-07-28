@@ -1,20 +1,20 @@
-using DDD.Domain.Common.Models;
+using DDD.Domain.Common.DomainErrors;
+using DDD.Domain.Common.Models.Identities;
+using ErrorOr;
 
 namespace DDD.Domain.MenuAggregate.ValueObjects;
 
 public sealed class MenuId : AggregateRootId<Guid>
 {
-    public override Guid Value { get; protected set;}
 
-    public MenuId(Guid value)
+    private MenuId(Guid value) : base(value)
     {
-        Value = value;
     }
 
     public static MenuId CreateUnique()
     {
         // TODO: Enforce invariants
-        return new(Guid.NewGuid());
+        return new MenuId(Guid.NewGuid());
     }
 
     public static MenuId Create(Guid value)
@@ -23,14 +23,13 @@ public sealed class MenuId : AggregateRootId<Guid>
         return new MenuId(value);
     }
 
-    public override IEnumerable<object> GetEqualityComponents()
+    public static ErrorOr<MenuId> Create(string value)
     {
-        yield return Value;
-    }
-
-    #pragma warning disable cs8618
-        private MenuId()
+        if(!Guid.TryParse(value, out var guid))
         {
+            return Errors.Menu.InvalidMenuId;
         }
-    #pragma warning restore cs8618
+
+        return new MenuId(guid);
+    }
 }

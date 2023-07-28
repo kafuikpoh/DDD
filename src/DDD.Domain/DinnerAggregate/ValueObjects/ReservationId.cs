@@ -1,23 +1,21 @@
 using DDD.Domain.Common.Models;
+using DDD.Domain.Common.Models.Identities;
 
 namespace DDD.Domain.DinnerAggregate.ValueObjects;
 
-public sealed class ReservationId : ValueObject
+public sealed class ReservationId : EntityId<Guid>
 {
-    public Guid Value { get; }
-
-    public ReservationId(Guid value)
+    private ReservationId(Guid value) : base(value)
     {
-        Value = value;
     }
 
     public static ReservationId CreateUnique()
     {
-        return new(Guid.NewGuid());
+        return new ReservationId(Guid.NewGuid());
     }
 
-    public override IEnumerable<object> GetEqualityComponents()
+    public static ReservationId Create(Guid value)
     {
-        yield return Value;
+        return new ReservationId(value);
     }
 }

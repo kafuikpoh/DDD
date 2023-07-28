@@ -1,29 +1,21 @@
-using DDD.Domain.Common.Models;
+using DDD.Domain.Common.Models.Identities;
 
 namespace DDD.Domain.DinnerAggregate.ValueObjects;
 
 public sealed class DinnerId : AggregateRootId<Guid>
 {
-    public override Guid Value { get; protected set; }
 
-    public DinnerId(Guid value)
+    private DinnerId(Guid value) : base(value)
     {
-        Value = value;
     }
 
     public static DinnerId CreateUnique()
     {
-        return new(Guid.NewGuid());
+        return new DinnerId(Guid.NewGuid());
     }
 
-    public override IEnumerable<object> GetEqualityComponents()
+    public static DinnerId Create(Guid value)
     {
-        yield return Value;
+        return new DinnerId(value);
     }
-
-    #pragma warning disable cs8618
-        private DinnerId()
-        {
-        }
-    #pragma warning restore cs8618
 }

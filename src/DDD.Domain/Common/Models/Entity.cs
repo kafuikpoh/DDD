@@ -1,6 +1,6 @@
 namespace DDD.Domain.Common.Models;
 
-public abstract class Entity<TId> : IEquatable<Entity<TId>>, IHasDomainEvents where TId : notnull
+public abstract class Entity<TId> : IEquatable<Entity<TId>>, IHasDomainEvents where TId : ValueObject
 {
     private readonly List<IDomainEvent> _domainEvents = new();
     public TId Id { get; protected set; } = default!;

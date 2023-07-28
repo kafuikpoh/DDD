@@ -16,6 +16,11 @@ public sealed class Rating : ValueObject
         Value = value;
     }
 
+    public static Rating Create(int value)
+    {
+        return new Rating(value);
+    }
+
     public override IEnumerable<object> GetEqualityComponents()
     {
         yield return Value;

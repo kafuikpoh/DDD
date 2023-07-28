@@ -5,10 +5,10 @@ namespace DDD.Domain.MenuAggregate.Entities;
 
 public sealed class MenuItem : Entity<MenuItemId>
 {
-    public string Name { get; set; } = null!;
-    public string Description { get; set; } = null!;
+    public string Name { get; private set; }
+    public string Description { get; private set; }
 
-    private MenuItem(MenuItemId menuItemId, string name, string description) : base(menuItemId)
+    private MenuItem(string name, string description) : base(MenuItemId.CreateUnique())
     {
         Name = name;
         Description = description;
@@ -16,12 +16,13 @@ public sealed class MenuItem : Entity<MenuItemId>
 
     public static MenuItem Create(string name, string description)
     {
-        return new MenuItem(MenuItemId.CreateUnique(), name, description);
+        //TODO: enforce invariance
+        return new MenuItem(name, description);
     }
 
-    #pragma warning disable cs8618
-        private MenuItem()
-        {
-        }
-    #pragma warning restore cs8618
+#pragma warning disable cs8618
+    private MenuItem()
+    {
+    }
+#pragma warning restore cs8618
 }

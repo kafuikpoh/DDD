@@ -1,14 +1,12 @@
 using DDD.Domain.Common.Models;
+using DDD.Domain.Common.Models.Identities;
 
 namespace DDD.Domain.MenuAggregate.ValueObjects;
 
-public sealed class MenuItemId : ValueObject
+public sealed class MenuItemId : EntityId<Guid>
 {
-    public Guid Value { get; }
-
-    public MenuItemId(Guid value)
+    private MenuItemId(Guid value) : base(value)
     {
-        Value = value;
     }
 
     public static MenuItemId CreateUnique()
@@ -21,11 +19,6 @@ public sealed class MenuItemId : ValueObject
     {
         // TODO: Enforce invariance
         return new MenuItemId(value);
-    }
-
-    public override IEnumerable<object> GetEqualityComponents()
-    {
-        yield return Value;
     }
 
     #pragma warning disable cs8618

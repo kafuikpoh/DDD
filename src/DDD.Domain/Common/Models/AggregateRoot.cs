@@ -1,3 +1,5 @@
+using DDD.Domain.Common.Models.Identities;
+
 namespace DDD.Domain.Common.Models;
 
 public abstract class AggregateRoot<TId, TIdType> : Entity<TId>

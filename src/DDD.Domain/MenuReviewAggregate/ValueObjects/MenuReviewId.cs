@@ -1,23 +1,24 @@
 using DDD.Domain.Common.Models;
+using DDD.Domain.Common.Models.Identities;
 
 namespace DDD.Domain.MenuReviewAggregate.ValueObjects;
 
 public sealed class MenuReviewId : AggregateRootId<Guid>
 {
-    public override Guid Value { get; protected set; }
 
-    public MenuReviewId(Guid value)
+    private MenuReviewId(Guid value) : base(value)
     {
-        Value = value;
     }
 
     public static MenuReviewId CreateUnique()
     {
-        return new(Guid.NewGuid());
+        //TODO: enforce invariance
+        return new MenuReviewId(Guid.NewGuid());
     }
 
-    public override IEnumerable<object> GetEqualityComponents()
+    public static MenuReviewId Create(Guid value)
     {
-        yield return Value;
+        //TODO: enforce invariance
+        return new MenuReviewId(value);
     }
 }

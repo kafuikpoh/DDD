@@ -1,14 +1,13 @@
 using DDD.Domain.Common.Models;
+using DDD.Domain.Common.Models.Identities;
 
 namespace DDD.Domain.UserAggregate.ValueObjects;
 
 public sealed class UserId : AggregateRootId<Guid>
 {
-    public override Guid Value { get; protected set;}
 
-    private UserId(Guid value)
+    private UserId(Guid value) : base(value)
     {
-        Value = value;
     }
 
     public static UserId CreateUnique()
@@ -16,8 +15,8 @@ public sealed class UserId : AggregateRootId<Guid>
         return new(Guid.NewGuid());
     }
 
-    public override IEnumerable<object> GetEqualityComponents()
+    public static UserId Create(Guid userId)
     {
-        yield return Value;
+        return new UserId(userId);
     }
 }
