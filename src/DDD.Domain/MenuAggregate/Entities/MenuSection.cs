@@ -32,9 +32,9 @@ public sealed class MenuSection : Entity<MenuSectionId>
             items ?? new());
     }
 
-    #pragma warning disable cs8618
+    #pragma warning disable CS8618
         private MenuSection()
         {
         }
-    #pragma warning restore cs8618
+    #pragma warning restore CS8618
 }
