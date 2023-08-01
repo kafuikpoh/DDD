@@ -1,5 +1,5 @@
 ﻿using System;
-using DDD.Domain.Entities;
+using DDD.Domain.UserAggregate;
 
 namespace DDD.Application.Common.Interfaces.Persistence;
 

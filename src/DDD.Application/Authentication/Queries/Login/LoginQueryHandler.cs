@@ -3,7 +3,7 @@ using DDD.Application.Authentication.Common;
 using DDD.Application.Common.Interfaces.Authentication;
 using DDD.Application.Common.Interfaces.Persistence;
 using DDD.Domain.Common.Errors;
-using DDD.Domain.Entities;
+using DDD.Domain.UserAggregate;
 using ErrorOr;
 using MediatR;
 

@@ -3,7 +3,7 @@ using DDD.Application.Authentication.Common;
 using DDD.Application.Common.Interfaces.Authentication;
 using DDD.Application.Common.Interfaces.Persistence;
 using DDD.Domain.Common.Errors;
-using DDD.Domain.Entities;
+using DDD.Domain.UserAggregate;
 using ErrorOr;
 using MediatR;
 
@@ -34,13 +34,7 @@ public class RegisterCommandHandler :
         }
 
         //2. create user (generate unique ID)
-        var user = new User
-        {
-            FirstName = command.FirstName,
-            LastName = command.LastName,
-            Email = command.Email,
-            Password = command.Password
-        };
+        var user = User.Create(command.FirstName, command.LastName, command.Email, command.Password);
 
         _userRepository.Add(user);
 

@@ -1,6 +1,6 @@
 ﻿using System;
 using DDD.Application.Common.Interfaces.Persistence;
-using DDD.Domain.Entities;
+using DDD.Domain.UserAggregate;
 
 namespace DDD.Infrastructure.Persistence.Repositories;
 

@@ -4,7 +4,7 @@ using System.Security.Claims;
 using System.Text;
 using DDD.Application.Common.Interfaces.Authentication;
 using DDD.Application.Common.Interfaces.Services;
-using DDD.Domain.Entities;
+using DDD.Domain.UserAggregate;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
