@@ -40,4 +40,3 @@ public class ValidationBehavior<TRequest, TResponse> :
         return (dynamic)errors;
     }
 }
-
