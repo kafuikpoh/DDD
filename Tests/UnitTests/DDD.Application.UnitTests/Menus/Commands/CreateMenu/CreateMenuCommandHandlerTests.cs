@@ -36,7 +36,7 @@ public class CreateMenuCommandHandlerTests
         // Assert
         result.IsError.Should().BeFalse();
         result.Value.ValidateCreatedFrom(createMenuCommand);
-        _mockMenuRepository.Verify(mock => mock.Add(result.Value), Times.Once);
+        _mockMenuRepository.Verify(mock => mock.AddAsync(result.Value), Times.Once);
         // 1. Validate correct menu created based on command
         // 2. Menu added to repository
     }
